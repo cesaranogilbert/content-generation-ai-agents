@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Analytics - AI Agents</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+        }
+        .chart-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-chart-line me-2"></i>Content Generation Analytics</h2>
+            <a href="/content-generation" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+        </div>
+
+        <!-- Metrics Row -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card metric-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-robot fa-2x mb-2"></i>
+                        <h4>{{ analytics.total_content_generated }}</h4>
+                        <small>Total Content Generated</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card metric-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-dollar-sign fa-2x mb-2"></i>
+                        <h4>{{ analytics.estimated_value_generated }}</h4>
+                        <small>Estimated Value Generated</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card metric-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-clock fa-2x mb-2"></i>
+                        <h4>{{ analytics.average_creation_time }}</h4>
+                        <small>Average Creation Time</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card metric-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-check-circle fa-2x mb-2"></i>
+                        <h4>{{ analytics.success_rate }}</h4>
+                        <small>Success Rate</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Breakdown -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card chart-card h-100">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Content Types Generated</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="text-center p-3">
+                                    <i class="fas fa-graduation-cap fa-2x text-primary mb-2"></i>
+                                    <h4 class="text-primary">{{ analytics.courses_created }}</h4>
+                                    <small class="text-muted">Courses</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center p-3">
+                                    <i class="fas fa-magnet fa-2x text-success mb-2"></i>
+                                    <h4 class="text-success">{{ analytics.lead_magnets_created }}</h4>
+                                    <small class="text-muted">Lead Magnets</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center p-3">
+                                    <i class="fas fa-book fa-2x text-info mb-2"></i>
+                                    <h4 class="text-info">{{ analytics.ebooks_created }}</h4>
+                                    <small class="text-muted">eBooks</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center p-3">
+                                    <i class="fas fa-video fa-2x text-warning mb-2"></i>
+                                    <h4 class="text-warning">{{ analytics.webinars_created }}</h4>
+                                    <small class="text-muted">Webinars</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card chart-card h-100">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Top Expertise Areas</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for area in analytics.top_expertise_areas %}
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h6 class="mb-1">{{ area.area }}</h6>
+                                <small class="text-muted">{{ area.count }} items • {{ area.value }} value</small>
+                            </div>
+                            <div class="progress" style="width: 100px; height: 8px;">
+                                <div class="progress-bar bg-primary" style="width: {{ (area.count / 15) * 100 }}%"></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card chart-card">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Recent Content Creation</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Title</th>
+                                        <th>Created</th>
+                                        <th>Value</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in analytics.recent_creations %}
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-primary">{{ item.type }}</span>
+                                        </td>
+                                        <td>{{ item.title }}</td>
+                                        <td>{{ item.created }}</td>
+                                        <td>{{ item.value }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-success">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
