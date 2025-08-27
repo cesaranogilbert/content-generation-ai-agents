@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Generation AI Agents</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .agent-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            height: 280px;
+        }
+        .agent-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+        }
+        .btn-generate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            color: white;
+        }
+        .quick-gen-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="display-4 fw-bold mb-4">
+                    <i class="fas fa-robot me-3"></i>Content Generation AI Agents
+                </h1>
+                <p class="lead mb-4">
+                    Transform your expertise into professional courses, eBooks, lead magnets, and webinars
+                </p>
+                <div class="row justify-content-center">
+                    <div class="col-md-3">
+                        <div class="stats-card card p-3 text-center mb-3">
+                            <h3 class="mb-1">{{ stats.available_agents }}</h3>
+                            <small>AI Agents Ready</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card card p-3 text-center mb-3">
+                            <h3 class="mb-1">{{ stats.content_types }}</h3>
+                            <small>Content Types</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card card p-3 text-center mb-3">
+                            <h3 class="mb-1">{{ stats.platforms_supported }}</h3>
+                            <small>Platforms Supported</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card card p-3 text-center mb-3">
+                            <h3 class="mb-1">{{ stats.estimated_value }}</h3>
+                            <small>Revenue Potential</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <!-- Quick Generate Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="hero-section quick-gen-card p-4">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-lightning-bolt me-2"></i>Quick Generate
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-8 mx-auto">
+                            <form id="quickGenerateForm">
+                                <div class="row align-items-end">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Content Type</label>
+                                        <select class="form-select" name="content_type" required>
+                                            <option value="">Select Type</option>
+                                            <option value="course">Online Course</option>
+                                            <option value="lead_magnet">Lead Magnet</option>
+                                            <option value="ebook">eBook</option>
+                                            <option value="webinar">Webinar</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Expertise Area</label>
+                                        <select class="form-select" name="expertise_area" required>
+                                            <option value="">Select Area</option>
+                                            <option value="tax_optimization">Tax Optimization</option>
+                                            <option value="ma_analysis">M&A Analysis</option>
+                                            <option value="executive_coaching">Executive Coaching</option>
+                                            <option value="strategic_planning">Strategic Planning</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-generate w-100">
+                                            <i class="fas fa-magic me-2"></i>Generate Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Agents Grid -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card agent-card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-graduation-cap fa-3x mb-3"></i>
+                            <h4>Digital Course Creator</h4>
+                        </div>
+                        <p class="flex-grow-1">
+                            Generate complete online courses with video scripts, slide decks, workbooks, 
+                            assessments, and marketing materials. Perfect for premium course creation.
+                        </p>
+                        <div class="mb-3">
+                            <small><i class="fas fa-check me-2"></i>Course structure design</small><br>
+                            <small><i class="fas fa-check me-2"></i>Video script generation</small><br>
+                            <small><i class="fas fa-check me-2"></i>Assessment creation</small>
+                        </div>
+                        <a href="/digital-course-creator" class="btn btn-light mt-auto">
+                            <i class="fas fa-arrow-right me-2"></i>Create Course
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card agent-card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-magnet fa-3x mb-3"></i>
+                            <h4>Lead Magnet Generator</h4>
+                        </div>
+                        <p class="flex-grow-1">
+                            Create high-converting lead magnets including PDF guides, checklists, 
+                            templates, calculators, and complete email sequences.
+                        </p>
+                        <div class="mb-3">
+                            <small><i class="fas fa-check me-2"></i>PDF guide creation</small><br>
+                            <small><i class="fas fa-check me-2"></i>Email sequences</small><br>
+                            <small><i class="fas fa-check me-2"></i>Landing page optimization</small>
+                        </div>
+                        <a href="/lead-magnet-generator" class="btn btn-light mt-auto">
+                            <i class="fas fa-arrow-right me-2"></i>Generate Magnet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card agent-card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-book fa-3x mb-3"></i>
+                            <h4>eBook Publisher</h4>
+                        </div>
+                        <p class="flex-grow-1">
+                            Transform consulting insights into bestselling business eBooks ready for 
+                            Amazon KDP and Gumroad with complete publishing packages.
+                        </p>
+                        <div class="mb-3">
+                            <small><i class="fas fa-check me-2"></i>Manuscript generation</small><br>
+                            <small><i class="fas fa-check me-2"></i>Amazon KDP optimization</small><br>
+                            <small><i class="fas fa-check me-2"></i>Marketing materials</small>
+                        </div>
+                        <a href="/ebook-publisher" class="btn btn-light mt-auto">
+                            <i class="fas fa-arrow-right me-2"></i>Publish eBook
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card agent-card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-video fa-3x mb-3"></i>
+                            <h4>Webinar Engine</h4>
+                        </div>
+                        <p class="flex-grow-1">
+                            Create educational webinars that convert at 56% rates with complete 
+                            presentation systems, landing pages, and automation.
+                        </p>
+                        <div class="mb-3">
+                            <small><i class="fas fa-check me-2"></i>Webinar script creation</small><br>
+                            <small><i class="fas fa-check me-2"></i>Conversion optimization</small><br>
+                            <small><i class="fas fa-check me-2"></i>Automation setup</small>
+                        </div>
+                        <a href="/webinar-engine" class="btn btn-light mt-auto">
+                            <i class="fas fa-arrow-right me-2"></i>Create Webinar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-chart-line me-2"></i>Performance Analytics
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <h4 class="text-primary">100%</h4>
+                                <small class="text-muted">Success Rate</small>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="text-success">15 min</h4>
+                                <small class="text-muted">Avg Creation Time</small>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="text-info">25K+</h4>
+                                <small class="text-muted">Value Per Course</small>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="text-warning">4/4</h4>
+                                <small class="text-muted">Agents Online</small>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="/content-analytics" class="btn btn-outline-primary">
+                                <i class="fas fa-chart-bar me-2"></i>View Detailed Analytics
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <div class="spinner-border text-primary mb-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <h5>Generating Content...</h5>
+                    <p class="text-muted">Please wait while our AI agents create your professional content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="modal fade" id="resultsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Content Generated Successfully!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="resultsContent">
+                    <!-- Results will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="downloadBtn">
+                        <i class="fas fa-download me-2"></i>Download Content
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Quick Generate Form Handler
+        document.getElementById('quickGenerateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+            const resultsModal = new bootstrap.Modal(document.getElementById('resultsModal'));
+            
+            loadingModal.show();
+            
+            fetch('/quick-generate-content', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadingModal.hide();
+                
+                if (data.success) {
+                    // Show success results
+                    document.getElementById('resultsContent').innerHTML = `
+                        <div class="alert alert-success">
+                            <h6><i class="fas fa-check-circle me-2"></i>${data.message}</h6>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Content Type:</h6>
+                                <p class="text-capitalize">${data.content_type}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Generated ID:</h6>
+                                <p class="font-monospace">${data.content.course_id || data.content.magnet_id || data.content.book_id || data.content.webinar_id}</p>
+                            </div>
+                        </div>
+                        <h6>Content Structure:</h6>
+                        <pre class="bg-light p-3 rounded">${JSON.stringify(data.content, null, 2).substring(0, 500)}...</pre>
+                    `;
+                    resultsModal.show();
+                } else {
+                    // Show error
+                    document.getElementById('resultsContent').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h6><i class="fas fa-exclamation-triangle me-2"></i>Generation Failed</h6>
+                            <p>${data.message}</p>
+                            <small class="text-muted">Error: ${data.error}</small>
+                        </div>
+                    `;
+                    resultsModal.show();
+                }
+            })
+            .catch(error => {
+                loadingModal.hide();
+                document.getElementById('resultsContent').innerHTML = `
+                    <div class="alert alert-danger">
+                        <h6><i class="fas fa-exclamation-triangle me-2"></i>Network Error</h6>
+                        <p>Failed to generate content. Please try again.</p>
+                        <small class="text-muted">Error: ${error.message}</small>
+                    </div>
+                `;
+                resultsModal.show();
+            });
+        });
+
+        // Add some animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const cards = document.querySelectorAll('.agent-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
